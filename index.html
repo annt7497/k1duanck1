@@ -1,0 +1,2112 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lớp Học Thông Minh Của Em - Tin Học Khối 1</title>
+    <!-- Tải font chữ tròn trịa, thân thiện với học sinh Khối 1 (kèm fallback an toàn) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800;900&family=Quicksand:wght@600;700&display=swap" rel="stylesheet">
+    <style>
+        /* ==========================================================================
+           1. THIẾT LẬP FONT CHỮ, BẢNG MÀU & GIÃN DÒNG CHUẨN CHO HỌC SINH KHỐI 1
+           ========================================================================== */
+        :root {
+            --bg-cream: #f8fafc;
+            --primary-blue: #2563eb;
+            --sky-light: #e0f2fe;
+            --sky-mid: #38bdf8;
+            --mint-green: #10b981;
+            --mint-dark: #059669;
+            --mint-soft: #ecfdf5;
+            --sun-yellow: #facc15;
+            --sun-soft: #fef9c3;
+            --candy-pink: #ec4899;
+            --pink-soft: #fdf2f8;
+            --dream-purple: #8b5cf6;
+            --purple-soft: #f5f3ff;
+            --warm-orange: #f97316;
+            --text-dark: #1e293b;
+            --text-body: #334155;
+            --text-muted: #64748b;
+            --white: #ffffff;
+            --shadow-soft: 0 12px 32px -6px rgba(15, 23, 42, 0.08);
+            --shadow-card: 0 16px 36px -8px rgba(37, 99, 235, 0.12);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-family: 'Quicksand', 'Nunito', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            color: var(--text-dark);
+        }
+
+        body {
+            background-color: #eef7ff;
+            background-image:
+                radial-gradient(#facc15 2.4px, transparent 2.4px),
+                radial-gradient(#7dd3fc 2.4px, #eef7ff 2.4px);
+            background-size: 48px 48px;
+            background-position: 0 0, 24px 24px;
+            line-height: 1.9;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Giữ nguyên nền họa tiết kim cương vàng - xanh sáng rõ */
+        body::before {
+            content: none;
+        }
+
+        .container {
+            max-width: 1160px;
+            margin: 0 auto;
+            padding: 0 22px;
+        }
+
+        /* ==========================================================================
+           2. THANH ĐIỀU HƯỚNG (NAVBAR) GIỐNG BỐ CỤC MẪU + TRẠNG THÁI GIỌNG VIỆT
+           ========================================================================== */
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.94);
+            backdrop-filter: blur(12px);
+            border-bottom: 2px solid #e2e8f0;
+            box-shadow: 0 4px 20px rgba(15, 23, 42, 0.05);
+            padding: 12px 0;
+        }
+
+        .nav-inner {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 14px;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .brand-icon {
+            width: 46px;
+            height: 46px;
+            border-radius: 14px;
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+        }
+
+        .brand-info h1 {
+            font-family: 'Nunito', sans-serif;
+            font-size: 18px;
+            font-weight: 900;
+            color: #065f46;
+            line-height: 1.25;
+            letter-spacing: 0.3px;
+        }
+
+        .brand-info span {
+            font-size: 13px;
+            font-weight: 700;
+            color: #64748b;
+            display: block;
+        }
+
+        .nav-menu {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            font-family: 'Nunito', sans-serif;
+            font-size: 15px;
+            font-weight: 800;
+            color: #334155;
+            padding: 8px 14px;
+            border-radius: 999px;
+            transition: all 0.2s ease;
+        }
+
+        .nav-menu a:hover {
+            background: #ecfdf5;
+            color: #059669;
+        }
+
+        .voice-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: #eff6ff;
+            border: 2px solid #bfdbfe;
+            color: #1d4ed8;
+            font-family: 'Nunito', sans-serif;
+            font-size: 13px;
+            font-weight: 800;
+            padding: 6px 14px;
+            border-radius: 999px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .voice-pill:hover {
+            background: #dbeafe;
+            transform: translateY(-1px);
+        }
+
+        /* ==========================================================================
+           3. NÚT LOA ĐỌC TIẾNG VIỆT NỔI BẬT CHO TỪNG PHẦN
+           ========================================================================== */
+        .btn-speak {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 9px 18px;
+            border-radius: 999px;
+            border: 2px solid #ffffff;
+            background: linear-gradient(135deg, #f97316, #ea580c);
+            color: #ffffff;
+            font-family: 'Nunito', sans-serif;
+            font-size: 15px;
+            font-weight: 800;
+            cursor: pointer;
+            box-shadow: 0 5px 14px rgba(234, 88, 12, 0.28);
+            transition: all 0.2s ease;
+            flex-shrink: 0;
+        }
+
+        .btn-speak:hover {
+            transform: translateY(-2px);
+            filter: brightness(1.05);
+        }
+
+        .btn-speak:active {
+            transform: translateY(1px);
+        }
+
+        .btn-speak.green {
+            background: linear-gradient(135deg, #10b981, #059669);
+            box-shadow: 0 5px 14px rgba(5, 150, 105, 0.28);
+        }
+
+        .btn-speak.blue {
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+            box-shadow: 0 5px 14px rgba(37, 99, 235, 0.28);
+        }
+
+        .btn-speak.purple {
+            background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+            box-shadow: 0 5px 14px rgba(124, 58, 237, 0.28);
+        }
+
+        @keyframes pulse-ring {
+            0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
+            70% { box-shadow: 0 0 0 12px rgba(239, 68, 68, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+        }
+
+        .btn-speak.is-speaking {
+            background: linear-gradient(135deg, #ef4444, #dc2626) !important;
+            animation: pulse-ring 1.2s infinite;
+        }
+
+        /* ==========================================================================
+           4. HERO SECTION - BỐ CỤC CHUẨN MẪU, KHÔNG MẤT DẤU CHỮ & GIÃN DÒNG RỘNG
+           ========================================================================== */
+        .hero {
+            padding: 52px 0 40px;
+            text-align: center;
+            position: relative;
+        }
+
+        .project-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #e0f2fe;
+            color: #0369a1;
+            border: 2px solid #bae6fd;
+            font-family: 'Nunito', sans-serif;
+            font-size: 15px;
+            font-weight: 800;
+            padding: 8px 22px;
+            border-radius: 999px;
+            margin-bottom: 22px;
+            box-shadow: 0 4px 12px rgba(2, 132, 199, 0.1);
+        }
+
+        /* Tiêu đề lớn: Đệm trên 18px + giãn dòng 1.38 giúp dấu mũ chữ Ô hiển thị trọn vẹn 100% */
+        .hero-main-title {
+            font-family: 'Nunito', sans-serif;
+            font-size: clamp(34px, 5.5vw, 58px);
+            font-weight: 900;
+            line-height: 1.38;
+            padding-top: 18px;
+            padding-bottom: 8px;
+            margin-bottom: 16px;
+            color: #0f172a;
+            letter-spacing: 0.5px;
+        }
+
+        .hero-main-title .highlight-green {
+            display: block;
+            background: linear-gradient(90deg, #10b981 0%, #059669 45%, #2563eb 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            padding-top: 6px;
+        }
+
+        .hero-subtitle {
+            max-width: 760px;
+            margin: 0 auto 22px;
+            font-size: 20px;
+            font-weight: 700;
+            color: #334155;
+            line-height: 2.0;
+            background: rgba(255, 255, 255, 0.85);
+            padding: 18px 28px;
+            border-radius: 26px;
+            border: 2px solid #e2e8f0;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .hero-cards-row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .info-pill-card {
+            background: #ffffff;
+            border-radius: 22px;
+            padding: 16px 26px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            box-shadow: var(--shadow-soft);
+            border: 2px solid #f1f5f9;
+            border-bottom: 5px solid #facc15;
+            min-width: 250px;
+            transition: transform 0.2s ease;
+        }
+
+        .info-pill-card:hover {
+            transform: translateY(-3px);
+        }
+
+        .info-pill-card.blue {
+            border-bottom-color: #38bdf8;
+        }
+
+        .pill-icon-circle {
+            width: 48px;
+            height: 48px;
+            border-radius: 16px;
+            background: #fef9c3;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+
+        .info-pill-card.blue .pill-icon-circle {
+            background: #e0f2fe;
+        }
+
+        .pill-text {
+            text-align: left;
+        }
+
+        .pill-text small {
+            display: block;
+            font-size: 12px;
+            font-weight: 800;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            line-height: 1.4;
+        }
+
+        .pill-text strong {
+            font-family: 'Nunito', sans-serif;
+            font-size: 18px;
+            font-weight: 900;
+            color: #0f172a;
+        }
+
+        /* ==========================================================================
+           5. THẺ CÂU CHUYỆN MỞ ĐẦU & 3 Ô KỸ NĂNG (GIỐNG BỐ CỤC ẢNH MẪU 1)
+           ========================================================================== */
+        .section {
+            padding: 36px 0;
+        }
+
+        .story-card {
+            background: #ffffff;
+            border-radius: 28px;
+            padding: 36px;
+            box-shadow: 0 12px 32px rgba(14, 165, 233, 0.08);
+            border: 2px solid #e0f2fe;
+            display: grid;
+            grid-template-columns: 1.35fr 1fr;
+            gap: 32px;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .story-card::after {
+            content: "";
+            position: absolute;
+            bottom: -35px;
+            left: -35px;
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            background: #fce7f3;
+            opacity: 0.7;
+            pointer-events: none;
+        }
+
+        @media (max-width: 880px) {
+            .story-card {
+                grid-template-columns: 1fr;
+                padding: 24px;
+            }
+        }
+
+        .card-top-bar {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            margin-bottom: 18px;
+        }
+
+        .title-with-icon {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .title-with-icon h3 {
+            font-family: 'Nunito', sans-serif;
+            font-size: 28px;
+            font-weight: 900;
+            color: #065f46;
+            line-height: 1.3;
+        }
+
+        .story-paragraph {
+            font-size: 18px;
+            font-weight: 600;
+            color: #334155;
+            line-height: 2.0;
+            margin-bottom: 18px;
+        }
+
+        .inline-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 2px 10px;
+            border-radius: 10px;
+            font-weight: 800;
+            font-size: 16px;
+            background: #f1f5f9;
+            color: #1e293b;
+            margin: 0 2px;
+        }
+
+        .imagine-box {
+            background: #ecfdf5;
+            border-left: 6px solid #10b981;
+            border-radius: 18px;
+            padding: 18px 22px;
+            margin-bottom: 18px;
+            font-size: 18px;
+            font-weight: 700;
+            color: #065f46;
+            line-height: 1.95;
+        }
+
+        .mission-line {
+            background: #fff1f2;
+            border: 2.5px dashed #fda4af;
+            border-radius: 20px;
+            padding: 18px 22px;
+            font-size: 18px;
+            font-weight: 700;
+            color: #334155;
+            line-height: 1.95;
+            position: relative;
+            z-index: 1;
+        }
+
+        .mission-line strong.red-label {
+            color: #e11d48;
+            font-weight: 900;
+            text-transform: uppercase;
+        }
+
+        /* 3 Ô bên phải giống hệt ảnh mẫu: Công nghệ - Tư duy - Kỹ năng */
+        .bento-pillars {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .bento-box {
+            border-radius: 24px;
+            padding: 24px 18px;
+            text-align: center;
+            transition: transform 0.2s ease;
+        }
+
+        .bento-box:hover {
+            transform: translateY(-4px);
+        }
+
+        .bento-box.blue-bg {
+            background: #eff6ff;
+            border: 2px solid #dbeafe;
+        }
+
+        .bento-box.purple-bg {
+            background: #faf5ff;
+            border: 2px solid #f3e8ff;
+        }
+
+        .bento-box.orange-bg {
+            grid-column: span 2;
+            background: #fff7ed;
+            border: 2px solid #ffedd5;
+        }
+
+        .bento-svg {
+            width: 46px;
+            height: 46px;
+            margin: 0 auto 10px;
+            display: block;
+        }
+
+        .bento-box h4 {
+            font-family: 'Nunito', sans-serif;
+            font-size: 18px;
+            font-weight: 900;
+            color: #0f172a;
+            margin-bottom: 4px;
+        }
+
+        .bento-box p {
+            font-size: 15px;
+            font-weight: 700;
+            color: #64748b;
+            line-height: 1.6;
+        }
+
+        /* ==========================================================================
+           6. BẢN ĐỒ HÀNH TRÌNH (2 TIẾT HỌC - 8 BƯỚC THỰC HÀNH)
+           ========================================================================== */
+        .section-heading-center {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .section-heading-center h2 {
+            font-family: 'Nunito', sans-serif;
+            font-size: clamp(28px, 4vw, 38px);
+            font-weight: 900;
+            color: #0f172a;
+            line-height: 1.35;
+            margin-bottom: 8px;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .section-heading-center p {
+            font-size: 18px;
+            font-weight: 700;
+            color: #475569;
+            line-height: 1.8;
+        }
+
+        .journey-two-cols {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+        }
+
+        @media (max-width: 880px) {
+            .journey-two-cols {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .journey-card {
+            background: #ffffff;
+            border-radius: 30px;
+            padding: 30px;
+            box-shadow: var(--shadow-soft);
+            border: 2px solid #f1f5f9;
+            transition: transform 0.2s ease;
+        }
+
+        .journey-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .journey-card.pink-glow {
+            box-shadow: 0 14px 34px -6px rgba(236, 72, 153, 0.14);
+        }
+
+        .journey-card.green-glow {
+            box-shadow: 0 14px 34px -6px rgba(16, 185, 129, 0.14);
+        }
+
+        .journey-card-head {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            margin-bottom: 22px;
+        }
+
+        .num-circle {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            font-family: 'Nunito', sans-serif;
+            font-size: 20px;
+            font-weight: 900;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .num-circle.pink {
+            background: #fce7f3;
+            color: #db2777;
+        }
+
+        .num-circle.green {
+            background: #dcfce7;
+            color: #059669;
+        }
+
+        .step-items {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .step-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            padding: 14px 16px;
+            border-radius: 18px;
+            background: #f8fafc;
+            border: 1.5px solid #e2e8f0;
+        }
+
+        .step-row .emoji-dot {
+            font-size: 24px;
+            line-height: 1.3;
+        }
+
+        .step-row h4 {
+            font-family: 'Nunito', sans-serif;
+            font-size: 17px;
+            font-weight: 900;
+            color: #1e293b;
+            margin-bottom: 3px;
+            line-height: 1.4;
+        }
+
+        .step-row p {
+            font-size: 16px;
+            font-weight: 600;
+            color: #475569;
+            line-height: 1.85;
+        }
+
+        /* ==========================================================================
+           7. TRẠM GHÉP CÂU LỆNH THẦN KỲ (PROMPT BUILDER + TRANH SVG MINH HỌA)
+           ========================================================================== */
+        .interactive-panel {
+            background: #ffffff;
+            border-radius: 34px;
+            padding: 34px;
+            box-shadow: var(--shadow-card);
+            border: 2px solid #e9d5ff;
+            margin-bottom: 32px;
+        }
+
+        .builder-grid {
+            display: grid;
+            grid-template-columns: 1.45fr 1fr;
+            gap: 26px;
+            margin-top: 22px;
+        }
+
+        @media (max-width: 920px) {
+            .builder-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .keyword-section {
+            background: #faf5ff;
+            border: 2px solid #f3e8ff;
+            border-radius: 22px;
+            padding: 16px;
+            margin-bottom: 16px;
+        }
+
+        .keyword-section.yellow { background: #fffbeb; border-color: #fef3c7; }
+        .keyword-section.green  { background: #ecfdf5; border-color: #d1fae5; }
+        .keyword-section.pink   { background: #fdf2f8; border-color: #fce7f3; margin-bottom: 0; }
+
+        .keyword-title {
+            font-family: 'Nunito', sans-serif;
+            font-size: 17px;
+            font-weight: 900;
+            color: #4c1d95;
+            margin-bottom: 12px;
+        }
+
+        .keyword-section.yellow .keyword-title { color: #92400e; }
+        .keyword-section.green .keyword-title  { color: #065f46; }
+        .keyword-section.pink .keyword-title   { color: #9d174d; }
+
+        .choice-cards {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+
+        @media (min-width: 600px) {
+            .choice-cards {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        .choice-btn {
+            background: #ffffff;
+            border: 2.5px solid #e2e8f0;
+            border-radius: 18px;
+            padding: 12px 8px;
+            text-align: center;
+            cursor: pointer;
+            font-family: 'Quicksand', sans-serif;
+            transition: all 0.18s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .choice-btn:hover {
+            border-color: #8b5cf6;
+            transform: translateY(-2px);
+        }
+
+        .choice-btn.active {
+            border-color: #7c3aed;
+            background: #f3e8ff;
+            box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.2);
+            transform: scale(1.03);
+        }
+
+        .choice-btn .c-icon {
+            font-size: 32px;
+            line-height: 1.2;
+        }
+
+        .choice-btn .c-text {
+            font-size: 14px;
+            font-weight: 800;
+            color: #1e293b;
+            line-height: 1.4;
+        }
+
+        .art-preview-card {
+            background: linear-gradient(180deg, #e0f2fe 0%, #fef9c3 100%);
+            border: 3px solid #7dd3fc;
+            border-radius: 26px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            text-align: center;
+        }
+
+        .art-frame {
+            width: 100%;
+            max-width: 340px;
+            aspect-ratio: 4 / 3;
+            background: #ffffff;
+            border-radius: 20px;
+            border: 3px solid #bae6fd;
+            overflow: hidden;
+            box-shadow: 0 10px 24px rgba(2, 132, 199, 0.15);
+            margin: 12px 0;
+        }
+
+        .prompt-box-outer {
+            margin-top: 22px;
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6, #ec4899);
+            padding: 3px;
+            border-radius: 24px;
+        }
+
+        .prompt-box-inner {
+            background: #ffffff;
+            border-radius: 21px;
+            padding: 20px 24px;
+        }
+
+        .prompt-sentence {
+            font-size: 19px;
+            font-weight: 800;
+            color: #1e293b;
+            background: #f8fafc;
+            border: 2px dashed #c084fc;
+            border-radius: 16px;
+            padding: 16px 20px;
+            line-height: 2.0;
+            margin-top: 12px;
+        }
+
+        .slot-device { color: #0284c7; background: #e0f2fe; padding: 2px 8px; border-radius: 8px; }
+        .slot-action { color: #b45309; background: #fef3c7; padding: 2px 8px; border-radius: 8px; }
+        .slot-decor  { color: #047857; background: #d1fae5; padding: 2px 8px; border-radius: 8px; }
+        .slot-color  { color: #be185d; background: #fce7f3; padding: 2px 8px; border-radius: 8px; }
+
+        /* ==========================================================================
+           8. TRẠM THÁM TỬ AI & PHÂN BIỆT VAI TRÒ EM - AI (TIẾT 2)
+           ========================================================================== */
+        .ti2-grid {
+            display: grid;
+            grid-template-columns: 1.25fr 1fr;
+            gap: 24px;
+        }
+
+        @media (max-width: 900px) {
+            .ti2-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .card-white {
+            background: #ffffff;
+            border-radius: 30px;
+            padding: 28px;
+            box-shadow: var(--shadow-soft);
+            border: 2px solid #e2e8f0;
+        }
+
+        .detective-list {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin: 18px 0;
+        }
+
+        @media (max-width: 540px) {
+            .detective-list {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .device-option {
+            background: #f8fafc;
+            border: 2.5px solid #cbd5e1;
+            border-radius: 18px;
+            padding: 14px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            user-select: none;
+        }
+
+        .device-option:hover {
+            border-color: #10b981;
+            transform: translateY(-2px);
+        }
+
+        .device-option.selected {
+            background: #ecfdf5;
+            border-color: #10b981;
+            box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2);
+        }
+
+        .device-option.is-right {
+            background: #dcfce7;
+            border-color: #16a34a;
+        }
+
+        .device-option.is-wrong {
+            background: #fee2e2;
+            border-color: #ef4444;
+        }
+
+        .tick-box {
+            width: 26px;
+            height: 26px;
+            border-radius: 8px;
+            border: 2.5px solid #94a3b8;
+            background: #ffffff;
+            color: #ffffff;
+            font-weight: 900;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .device-option.selected .tick-box {
+            background: #10b981;
+            border-color: #10b981;
+        }
+
+        .role-item {
+            background: #f8fafc;
+            border: 1.5px solid #e2e8f0;
+            border-radius: 18px;
+            padding: 14px 16px;
+            margin-bottom: 12px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .role-q {
+            font-size: 16px;
+            font-weight: 800;
+            color: #1e293b;
+            line-height: 1.5;
+        }
+
+        .who-btns {
+            display: flex;
+            gap: 8px;
+        }
+
+        .who-btn {
+            padding: 6px 14px;
+            border-radius: 999px;
+            border: 2px solid #cbd5e1;
+            background: #ffffff;
+            font-family: 'Nunito', sans-serif;
+            font-size: 14px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+
+        .who-btn.me-ok {
+            background: #2563eb;
+            color: #ffffff;
+            border-color: #1d4ed8;
+        }
+
+        .who-btn.ai-ok {
+            background: #8b5cf6;
+            color: #ffffff;
+            border-color: #7c3aed;
+        }
+
+        .declaration-card {
+            background: linear-gradient(135deg, #fefce8, #fef3c7);
+            border: 2.5px solid #f59e0b;
+            border-radius: 20px;
+            padding: 18px;
+            text-align: center;
+            margin-top: 16px;
+        }
+
+        /* ==========================================================================
+           9. BẢNG ĐIỂM SIÊU SAO (RUBRICS 4 MỨC - GIỐNG BỐ CỤC ẢNH MẪU 3)
+           ========================================================================== */
+        .rubric-card {
+            background: #ffffff;
+            border-radius: 30px;
+            padding: 26px;
+            box-shadow: var(--shadow-card);
+            border: 2px solid #e2e8f0;
+            overflow-x: auto;
+        }
+
+        .rubric-grid-table {
+            width: 100%;
+            min-width: 840px;
+            border-collapse: collapse;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .rubric-grid-table th {
+            padding: 18px 16px;
+            color: #ffffff;
+            font-family: 'Nunito', sans-serif;
+            font-size: 16px;
+            font-weight: 900;
+            text-align: left;
+            line-height: 1.45;
+        }
+
+        .col-tc  { background: #047857; width: 22%; }
+        .col-m1  { background: #f87171; width: 18%; }
+        .col-m2  { background: #fb923c; width: 19%; }
+        .col-m3  { background: #facc15; color: #422006 !important; width: 20%; }
+        .col-m4  { background: #3b82f6; width: 21%; }
+
+        .rubric-grid-table td {
+            padding: 18px 16px;
+            font-size: 15px;
+            font-weight: 700;
+            color: #334155;
+            line-height: 1.85;
+            border-bottom: 1.5px solid #e2e8f0;
+            border-right: 1px solid #f1f5f9;
+            vertical-align: top;
+            background: #ffffff;
+        }
+
+        .rubric-grid-table tr:nth-child(even) td {
+            background: #f8fafc;
+        }
+
+        .rubric-grid-table td:last-child {
+            background: #eff6ff;
+            color: #1e3a8a;
+        }
+
+        /* ==========================================================================
+           10. CHÂN TRANG XANH LÁ ĐẬM GIỐNG ẢNH MẪU
+           ========================================================================== */
+        .site-footer {
+            background: #047857;
+            color: #ffffff;
+            text-align: center;
+            padding: 24px 20px;
+            margin-top: 44px;
+            font-family: 'Nunito', sans-serif;
+            font-size: 15px;
+            font-weight: 800;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ======================================================================
+         THANH ĐIỀU HƯỚNG TRÊN CÙNG
+         ====================================================================== -->
+    <header class="navbar">
+        <div class="container nav-inner">
+            <a href="#gioi-thieu" class="brand">
+                <div class="brand-icon">
+                    <!-- Biểu tượng Mũ tốt nghiệp & Công nghệ SVG -->
+                    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+                        <path d="M6 12v5c3 3 9 3 12 0v-5"/>
+                    </svg>
+                </div>
+                <div class="brand-info">
+                    <h1>TIN HỌC KHỐI 1</h1>
+                    <span>Năm học 2026 - 2027 • Vinschool</span>
+                </div>
+            </a>
+
+            <nav class="nav-menu">
+                <a href="#gioi-thieu">Giới thiệu</a>
+                <a href="#nhiem-vu">Nhiệm vụ</a>
+                <a href="#hanh-trinh">Hành trình</a>
+                <a href="#thuc-hanh">Luyện tập AI</a>
+                <a href="#cham-diem">Chấm điểm</a>
+                <button type="button" class="voice-pill" id="voice-status-btn" onclick="testVietnameseVoice(this)" title="Bấm để nghe thử giọng đọc tiếng Việt">
+                    <span>🇻🇳</span>
+                    <span id="voice-label">Giọng đọc Tiếng Việt</span>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- ======================================================================
+         PHẦN 1: HERO SECTION (BỐ CỤC CHUẨN MẪU + KHÔNG MẤT DẤU CHỮ Ô)
+         ====================================================================== -->
+    <section id="gioi-thieu" class="hero">
+        <div class="container">
+            <div class="project-chip">
+                <span>🎨</span>
+                <span>Mini Project Số 1 • Kiểm Tra Học Kỳ I</span>
+            </div>
+
+            <h2 class="hero-main-title">
+                AI CÙNG EM THIẾT KẾ
+                <span class="highlight-green">LỚP HỌC THÔNG MINH</span>
+            </h2>
+
+            <div class="hero-subtitle" id="doc-hero">
+                Chào mừng các bạn nhỏ Khối 1! Hãy cùng sử dụng Trí tuệ nhân tạo (AI) để biến lớp học ước mơ của chúng mình trở nên thông minh, vui nhộn và đầy màu sắc nhé!
+            </div>
+
+            <div style="margin-bottom: 10px;">
+                <button type="button" class="btn-speak" onclick="speakElement('doc-hero', this)">
+                    <span>🔊 Nghe cô đọc lời chào</span>
+                </button>
+            </div>
+
+            <div class="hero-cards-row">
+                <div class="info-pill-card">
+                    <div class="pill-icon-circle">🕒</div>
+                    <div class="pill-text">
+                        <small>Thời gian</small>
+                        <strong>2 Tiết học (35 phút/tiết)</strong>
+                    </div>
+                </div>
+                <div class="info-pill-card blue">
+                    <div class="pill-icon-circle">🤖</div>
+                    <div class="pill-text">
+                        <small>Trợ lý</small>
+                        <strong>Công cụ AI tạo hình ảnh</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ======================================================================
+         PHẦN 2: CÂU CHUYỆN MỞ ĐẦU & 3 Ô KỸ NĂNG (GIỐNG BỐ CỤC ẢNH MẪU)
+         ====================================================================== -->
+    <section id="nhiem-vu" class="section">
+        <div class="container">
+            <div class="story-card">
+                <div>
+                    <div class="card-top-bar">
+                        <div class="title-with-icon">
+                            <span style="font-size: 32px;">🌍</span>
+                            <h3>Câu chuyện mở đầu</h3>
+                        </div>
+                        <button type="button" class="btn-speak green" onclick="speakElement('doc-story', this)">
+                            <span>🔊 Nghe đọc câu chuyện</span>
+                        </button>
+                    </div>
+
+                    <div id="doc-story">
+                        <p class="story-paragraph">
+                            Mỗi ngày ở lớp, chúng mình dùng rất nhiều đồ vật quen thuộc như
+                            <span class="inline-badge">💻 máy tính</span>,
+                            <span class="inline-badge">📋 bảng</span>,
+                            <span class="inline-badge">🌀 quạt</span>,
+                            <span class="inline-badge">🔊 loa</span> và
+                            <span class="inline-badge">💡 đèn</span>.
+                            Nếu lớp học có thêm các thiết bị thông minh hỗ trợ học tập thì sẽ tuyệt vời biết bao!
+                        </p>
+
+                        <div class="imagine-box">
+                            🤖 <strong>Tưởng tượng xem:</strong> Nếu trong lớp có một bạn Robot AI gợi ý sách hay, Bảng thông minh giúp giải toán vui hay Thiết bị nhắc cả lớp giữ trật tự thì sao nhỉ?
+                        </div>
+
+                        <p class="mission-line">
+                            🎯 <strong class="red-label">Nhiệm vụ của em:</strong> Trở thành <strong>"Nhà thiết kế lớp học thông minh"</strong> — nghĩ ý tưởng, viết câu lệnh để AI vẽ bức tranh lớp học mơ ước và phân biệt việc của em với việc của AI!
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 3 Ô Công nghệ - Tư duy - Kỹ năng -->
+                <div class="bento-pillars">
+                    <div class="bento-box blue-bg">
+                        <svg class="bento-svg" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="4" y="4" width="16" height="16" rx="2"/>
+                            <rect x="9" y="9" width="6" height="6"/>
+                            <path d="M9 1v3M15 1v3M9 20v3M15 20v3M20 9h3M20 14h3M1 9h3M1 14h3"/>
+                        </svg>
+                        <h4>Công nghệ</h4>
+                        <p>Tạo tranh Lớp học thông minh với AI</p>
+                    </div>
+
+                    <div class="bento-box purple-bg">
+                        <svg class="bento-svg" viewBox="0 0 24 24" fill="none" stroke="#9333ea" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 4.44-2.54Z"/>
+                            <path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-4.44-2.54Z"/>
+                        </svg>
+                        <h4>Tư duy</h4>
+                        <p>Nghĩ ý tưởng & ghép câu lệnh (Prompt)</p>
+                    </div>
+
+                    <div class="bento-box orange-bg">
+                        <svg class="bento-svg" viewBox="0 0 24 24" fill="none" stroke="#ea580c" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="m15 4-1 1 4 4 1-1a2.83 2.83 0 1 0-4-4Z"/>
+                            <path d="m13 6-8.5 8.5a2.12 2.12 0 1 0 3 3L16 9"/>
+                            <path d="M5 3v4M3 5h4M19 17v4M17 19h4"/>
+                        </svg>
+                        <h4>Kỹ năng & Trách nhiệm</h4>
+                        <p>Nhận diện AI & Phân biệt vai trò Người - AI</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ======================================================================
+         PHẦN 3: BẢN ĐỒ HÀNH TRÌNH (2 TIẾT HỌC - 8 BƯỚC)
+         ====================================================================== -->
+    <section id="hanh-trinh" class="section">
+        <div class="container">
+            <div class="section-heading-center">
+                <h2>🗺️ Bản Đồ Hành Trình (2 Tiết)</h2>
+                <p>Cùng xem 8 bước thực hành thật vui để hoàn thành dự án Lớp Học Thông Minh nhé!</p>
+            </div>
+
+            <div class="journey-two-cols">
+                <!-- TIẾT 1 -->
+                <div class="journey-card pink-glow">
+                    <div class="journey-card-head">
+                        <div style="display: flex; align-items: center; gap: 14px;">
+                            <div class="num-circle pink">1</div>
+                            <div>
+                                <span style="font-size: 13px; font-weight: 800; color: #db2777;">TIẾT 1 • 35 PHÚT</span>
+                                <h3 style="font-family: 'Nunito', sans-serif; font-size: 21px; font-weight: 900; color: #0f172a;">
+                                    Em thiết kế lớp học thông minh
+                                </h3>
+                            </div>
+                        </div>
+                        <button type="button" class="btn-speak" onclick="speakElement('doc-tiet-1', this)">
+                            <span>🔊 Nghe Tiết 1</span>
+                        </button>
+                    </div>
+
+                    <div id="doc-tiet-1" class="step-items">
+                        <div class="step-row">
+                            <span class="emoji-dot">💡</span>
+                            <div>
+                                <h4>Bước 1: Quan sát & Nêu ý tưởng</h4>
+                                <p>Chọn một góc thông minh em thích: Góc đọc sách, Bảng hỗ trợ học tập hoặc Thiết bị nhắc giữ trật tự.</p>
+                            </div>
+                        </div>
+                        <div class="step-row">
+                            <span class="emoji-dot">🪄</span>
+                            <div>
+                                <h4>Bước 2: Tạo câu lệnh (Prompt)</h4>
+                                <p>Chọn từ khóa về thiết bị AI, công việc giúp học sinh, đồ trang trí và màu sắc chủ đạo của lớp.</p>
+                            </div>
+                        </div>
+                        <div class="step-row">
+                            <span class="emoji-dot">🎨</span>
+                            <div>
+                                <h4>Bước 3: Dùng AI tạo hình & Chọn tranh</h4>
+                                <p>Nhập câu lệnh vào công cụ AI tạo ảnh. Xem tranh, thêm chi tiết và chọn bức tranh đẹp nhất.</p>
+                            </div>
+                        </div>
+                        <div class="step-row">
+                            <span class="emoji-dot">📌</span>
+                            <div>
+                                <h4>Bước 4: Tự kiểm tra & Lưu lên Padlet</h4>
+                                <p>Kiểm tra tranh đã đúng đồ vật và màu sắc em muốn chưa, sau đó lưu sản phẩm lên bảng Padlet của lớp.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TIẾT 2 -->
+                <div class="journey-card green-glow">
+                    <div class="journey-card-head">
+                        <div style="display: flex; align-items: center; gap: 14px;">
+                            <div class="num-circle green">2</div>
+                            <div>
+                                <span style="font-size: 13px; font-weight: 800; color: #059669;">TIẾT 2 • 35 PHÚT</span>
+                                <h3 style="font-family: 'Nunito', sans-serif; font-size: 21px; font-weight: 900; color: #0f172a;">
+                                    Nhận diện & Dùng AI có trách nhiệm
+                                </h3>
+                            </div>
+                        </div>
+                        <button type="button" class="btn-speak green" onclick="speakElement('doc-tiet-2', this)">
+                            <span>🔊 Nghe Tiết 2</span>
+                        </button>
+                    </div>
+
+                    <div id="doc-tiet-2" class="step-items">
+                        <div class="step-row">
+                            <span class="emoji-dot">🕵️</span>
+                            <div>
+                                <h4>Bước 5: Thám tử nhận diện thiết bị AI</h4>
+                                <p>Tích chọn đúng thiết bị <strong>CÓ AI</strong> (biết nhận biết, đưa gợi ý) và phân biệt với đồ dùng thường.</p>
+                            </div>
+                        </div>
+                        <div class="step-row">
+                            <span class="emoji-dot">🤝</span>
+                            <div>
+                                <h4>Bước 6: Nêu vai trò của Em và AI</h4>
+                                <p>Nói rõ: Con nghĩ ý tưởng và đưa lệnh; AI tạo hình. Con kiểm tra và yêu cầu AI chỉnh sửa.</p>
+                            </div>
+                        </div>
+                        <div class="step-row">
+                            <span class="emoji-dot">📤</span>
+                            <div>
+                                <h4>Bước 7: Hoàn thiện & Nộp bài</h4>
+                                <p>Hoàn thành phiếu học tập và kiểm tra đầy đủ minh chứng tranh, câu lệnh trên Padlet.</p>
+                            </div>
+                        </div>
+                        <div class="step-row">
+                            <span class="emoji-dot">🎤</span>
+                            <div>
+                                <h4>Bước 8: Chia sẻ & Tự đánh giá</h4>
+                                <p>Giới thiệu bức tranh của em trước lớp và tự đánh dấu các tiêu chí hoàn thành.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ======================================================================
+         PHẦN 4: TRẠM LUYỆN TẬP TƯƠNG TÁC (GHÉP CÂU LỆNH & THÁM TỬ AI)
+         ====================================================================== -->
+    <section id="thuc-hanh" class="section">
+        <div class="container">
+            <div class="section-heading-center">
+                <h2>🎮 Góc Luyện Tập Tương Tác</h2>
+                <p>Bấm chọn các thẻ hình để thực hành trước giờ kiểm tra cuối kỳ nhé!</p>
+            </div>
+
+            <!-- 4A. TRẠM GHÉP CÂU LỆNH THẦN KỲ -->
+            <div class="interactive-panel">
+                <div class="card-top-bar">
+                    <div class="title-with-icon">
+                        <span style="font-size: 32px;">✨</span>
+                        <div>
+                            <h3 style="font-family: 'Nunito', sans-serif; font-size: 24px; font-weight: 900; color: #5b21b6;">
+                                1. Trạm Ghép Câu Lệnh Thần Kỳ (Tiết 1)
+                            </h3>
+                            <p style="font-size: 16px; font-weight: 700; color: #64748b;">
+                                Con hãy bấm chọn 1 thẻ ở mỗi hàng để ghép thành câu lệnh hoàn chỉnh nhé!
+                            </p>
+                        </div>
+                    </div>
+                    <div style="display: flex; flex-wrap: wrap; gap: 10px;">
+                        <button type="button" class="btn-speak" onclick="speakText('Trạm ghép câu lệnh thần kỳ. Con hãy bấm chọn một thẻ hình ở mỗi hàng để tự động ghép thành câu lệnh vẽ lớp học thông minh nhé!', this)">
+                            <span>🔊 Nghe hướng dẫn</span>
+                        </button>
+                        <button type="button" class="btn-speak blue" onclick="resetPromptBuilder()">
+                            <span>🔄 Chọn lại</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="builder-grid">
+                    <div>
+                        <!-- Hàng 1 -->
+                        <div class="keyword-section">
+                            <div class="keyword-title">1️⃣ Thiết bị AI trong lớp học:</div>
+                            <div class="choice-cards">
+                                <button type="button" class="choice-btn" onclick="pickKeyword('device', 'Robot thông minh', 'robot', this)">
+                                    <span class="c-icon">🤖</span>
+                                    <span class="c-text">Robot thông minh</span>
+                                </button>
+                                <button type="button" class="choice-btn" onclick="pickKeyword('device', 'Bảng tương tác AI', 'board', this)">
+                                    <span class="c-icon">🖥️</span>
+                                    <span class="c-text">Bảng tương tác AI</span>
+                                </button>
+                                <button type="button" class="choice-btn" onclick="pickKeyword('device', 'Loa thông minh', 'speaker', this)">
+                                    <span class="c-icon">🔊</span>
+                                    <span class="c-text">Loa thông minh</span>
+                                </button>
+                                <button type="button" class="choice-btn" onclick="pickKeyword('device', 'Màn hình ảo', 'screen', this)">
+                                    <span class="c-icon">🌐</span>
+                                    <span class="c-text">Màn hình ảo</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Hàng 2 -->
+                        <div class="keyword-section yellow">
+                            <div class="keyword-title">2️⃣ Giúp học sinh làm việc gì?</div>
+                            <div class="choice-cards">
+                                <button type="button" class="choice-btn" onclick="pickKeyword('action', 'gợi ý sách hay', 'books', this)">
+                                    <span class="c-icon">📚</span>
+                                    <span class="c-text">gợi ý sách hay</span>
+                                </button>
+                                <button type="button" class="choice-btn" onclick="pickKeyword('action', 'nhắc giữ trật tự', 'quiet', this)">
+                                    <span class="c-icon">🤫</span>
+                                    <span class="c-text">nhắc giữ trật tự</span>
+                                </button>
+                                <button type="button" class="choice-btn" onclick="pickKeyword('action', 'giải bài toán vui', 'math', this)">
+                                    <span class="c-icon">✏️</span>
+                                    <span class="c-text">giải bài toán vui</span>
+                                </button>
+                                <button type="button" class="choice-btn" onclick="pickKeyword('action', 'tưới cây tự động', 'water', this)">
+                                    <span class="c-icon">🌱</span>
+                                    <span class="c-text">tưới cây tự động</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Hàng 3 -->
+                        <div class="keyword-section green">
+                            <div class="keyword-title">3️⃣ Đồ vật trang trí xung quanh:</div>
+                            <div class="choice-cards">
+                                <button type="button" class="choice-btn" onclick="pickKeyword('decor', 'nhiều chậu cây xanh', 'plants', this)">
+                                    <span class="c-icon">🪴</span>
+                                    <span class="c-text">nhiều chậu cây xanh</span>
+                                </button>
+                                <button type="button" class="choice-btn" onclick="pickKeyword('decor', 'ghế gấu bông êm ái', 'bear', this)">
+                                    <span class="c-icon">🧸</span>
+                                    <span class="c-text">ghế gấu bông êm ái</span>
+                                </button>
+                                <button type="button" class="choice-btn" onclick="pickKeyword('decor', 'bong bóng bay đầy màu sắc', 'balloons', this)">
+                                    <span class="c-icon">🎈</span>
+                                    <span class="c-text">bong bóng bay màu sắc</span>
+                                </button>
+                                <button type="button" class="choice-btn" onclick="pickKeyword('decor', 'kệ sách hình cây cổ thụ', 'tree', this)">
+                                    <span class="c-icon">🌳</span>
+                                    <span class="c-text">kệ sách hình cây</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Hàng 4 -->
+                        <div class="keyword-section pink">
+                            <div class="keyword-title">4️⃣ Màu sắc chủ đạo của lớp học:</div>
+                            <div class="choice-cards">
+                                <button type="button" class="choice-btn" onclick="pickKeyword('color', 'màu xanh lá nhạt', '#bbf7d0', this)">
+                                    <span class="c-icon">🟢</span>
+                                    <span class="c-text">màu xanh lá nhạt</span>
+                                </button>
+                                <button type="button" class="choice-btn" onclick="pickKeyword('color', 'màu vàng tươi nắng ấm', '#fef08a', this)">
+                                    <span class="c-icon">🟡</span>
+                                    <span class="c-text">màu vàng tươi nắng ấm</span>
+                                </button>
+                                <button type="button" class="choice-btn" onclick="pickKeyword('color', 'màu hồng kẹo ngọt', '#fbcfe8', this)">
+                                    <span class="c-icon">🩷</span>
+                                    <span class="c-text">màu hồng kẹo ngọt</span>
+                                </button>
+                                <button type="button" class="choice-btn" onclick="pickKeyword('color', 'màu xanh dương bầu trời', '#bae6fd', this)">
+                                    <span class="c-icon">🔵</span>
+                                    <span class="c-text">màu xanh dương bầu trời</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Khung xem trước bức tranh minh họa SVG -->
+                    <div class="art-preview-card">
+                        <div>
+                            <span style="background: #0284c7; color: #fff; padding: 4px 14px; border-radius: 999px; font-size: 13px; font-weight: 800;">
+                                🖼️ Bức Tranh Minh Họa Ý Tưởng
+                            </span>
+                            <h4 style="font-family: 'Nunito', sans-serif; font-size: 18px; font-weight: 900; color: #0c4a6e; margin-top: 8px;">
+                                Lớp Học Thông Minh Của Bé
+                            </h4>
+                        </div>
+
+                        <div class="art-frame">
+                            <svg viewBox="0 0 400 300" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+                                <rect id="wall-rect" x="0" y="0" width="400" height="225" fill="#e0f2fe" />
+                                <rect x="280" y="25" width="90" height="85" rx="12" fill="#ffffff" stroke="#38bdf8" stroke-width="4" />
+                                <line x1="325" y1="25" x2="325" y2="110" stroke="#38bdf8" stroke-width="3" />
+                                <line x1="280" y1="67" x2="370" y2="67" stroke="#38bdf8" stroke-width="3" />
+                                <circle cx="348" cy="48" r="12" fill="#facc15" />
+                                <rect x="0" y="225" width="400" height="75" fill="#fde68a" />
+                                <line x1="0" y1="225" x2="400" y2="225" stroke="#d97706" stroke-width="4" />
+
+                                <g id="decor-layer">
+                                    <rect x="35" y="185" width="32" height="40" rx="6" fill="#ea580c" />
+                                    <circle cx="51" cy="165" r="24" fill="#22c55e" />
+                                    <circle cx="36" cy="175" r="16" fill="#4ade80" />
+                                    <circle cx="66" cy="175" r="16" fill="#16a34a" />
+                                </g>
+
+                                <g id="device-layer" transform="translate(150, 95)">
+                                    <line x1="50" y1="0" x2="50" y2="18" stroke="#475569" stroke-width="5" />
+                                    <circle cx="50" cy="0" r="7" fill="#ec4899" />
+                                    <rect x="15" y="18" width="70" height="52" rx="16" fill="#ffffff" stroke="#2563eb" stroke-width="5" />
+                                    <circle cx="36" cy="40" r="7" fill="#2563eb" />
+                                    <circle cx="64" cy="40" r="7" fill="#2563eb" />
+                                    <path d="M 38 54 Q 50 64 62 54" stroke="#ec4899" stroke-width="4" fill="none" stroke-linecap="round" />
+                                    <rect x="22" y="75" width="56" height="50" rx="14" fill="#3b82f6" />
+                                    <text x="50" y="106" font-size="18" font-weight="900" fill="#ffffff" text-anchor="middle">AI</text>
+                                </g>
+
+                                <g transform="translate(225, 55)">
+                                    <rect x="0" y="0" width="142" height="42" rx="21" fill="#ffffff" stroke="#8b5cf6" stroke-width="3" />
+                                    <text id="action-label-svg" x="71" y="26" font-size="13" font-weight="800" fill="#5b21b6" text-anchor="middle">✨ Trợ lý AI</text>
+                                </g>
+                            </svg>
+                        </div>
+
+                        <p style="font-size: 14px; font-weight: 700; color: #0369a1; line-height: 1.6;">
+                            Bấm chọn các thẻ bên trái để xem lớp học đổi màu và biến hóa nhé!
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Câu lệnh hoàn chỉnh -->
+                <div class="prompt-box-outer">
+                    <div class="prompt-box-inner">
+                        <div class="card-top-bar" style="margin-bottom: 4px;">
+                            <span style="font-family: 'Nunito', sans-serif; font-size: 18px; font-weight: 900; color: #6b21a8;">
+                                📜 Câu lệnh hoàn chỉnh của em:
+                            </span>
+                            <div style="display: flex; flex-wrap: wrap; gap: 10px;">
+                                <button type="button" class="btn-speak" onclick="speakElement('final-prompt-text', this)">
+                                    <span>🔊 Nghe đọc câu lệnh</span>
+                                </button>
+                                <button type="button" class="btn-speak purple" onclick="copyPromptText()">
+                                    <span>📋 Sao chép câu lệnh</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div id="final-prompt-text" class="prompt-sentence">
+                            "Hãy vẽ một lớp học thông minh có <span class="slot-device">[thiết bị AI]</span> giúp học sinh <span class="slot-action">[công việc]</span>. Lớp học có <span class="slot-decor">[đồ vật trang trí]</span>, màu chủ đạo là <span class="slot-color">[màu sắc]</span>, theo phong cách hoạt hình dễ thương."
+                        </div>
+
+                        <div id="copy-alert" style="display: none; margin-top: 12px; background: #dcfce7; color: #166534; padding: 10px 16px; border-radius: 14px; font-weight: 800; text-align: center;">
+                            🎉 Đã sao chép câu lệnh! Con có thể dán vào công cụ tạo ảnh AI ngay nhé!
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 4B. THỬ TÀI THÁM TỬ AI & PHÂN BIỆT VAI TRÒ (TIẾT 2) -->
+            <div class="ti2-grid">
+                <!-- Thám tử AI -->
+                <div class="card-white">
+                    <div class="card-top-bar">
+                        <div class="title-with-icon">
+                            <span style="font-size: 30px;">🕵️</span>
+                            <div>
+                                <h3 style="font-family: 'Nunito', sans-serif; font-size: 22px; font-weight: 900; color: #065f46;">
+                                    2. Thử Tài Thám Tử AI (Tiết 2)
+                                </h3>
+                                <p style="font-size: 15px; font-weight: 700; color: #64748b;">
+                                    Tích chọn (✓) vào các đồ vật <strong>CÓ TRÍ TUỆ NHÂN TẠO (AI)</strong>:
+                                </p>
+                            </div>
+                        </div>
+                        <button type="button" class="btn-speak green" onclick="speakText('Thử tài thám tử AI. Con hãy bấm chọn vào những đồ vật có trí tuệ nhân tạo AI ở bên dưới, sau đó bấm nút Kiểm tra đáp án nhé!', this)">
+                            <span>🔊 Nghe đề bài</span>
+                        </button>
+                    </div>
+
+                    <div class="detective-list" id="ai-quiz-grid">
+                        <div class="device-option" data-has-ai="true" onclick="toggleDeviceOption(this)">
+                            <div class="tick-box">✓</div>
+                            <div>
+                                <div style="font-size: 24px;">🖥️</div>
+                                <div style="font-size: 15px; font-weight: 800; line-height: 1.4;">Bảng tương tác tự gợi ý câu trả lời</div>
+                            </div>
+                        </div>
+
+                        <div class="device-option" data-has-ai="false" onclick="toggleDeviceOption(this)">
+                            <div class="tick-box">✓</div>
+                            <div>
+                                <div style="font-size: 24px;">🌀</div>
+                                <div style="font-size: 15px; font-weight: 800; line-height: 1.4;">Chiếc quạt máy cắm điện</div>
+                            </div>
+                        </div>
+
+                        <div class="device-option" data-has-ai="true" onclick="toggleDeviceOption(this)">
+                            <div class="tick-box">✓</div>
+                            <div>
+                                <div style="font-size: 24px;">🤖</div>
+                                <div style="font-size: 15px; font-weight: 800; line-height: 1.4;">Robot nhận diện khuôn mặt điểm danh</div>
+                            </div>
+                        </div>
+
+                        <div class="device-option" data-has-ai="false" onclick="toggleDeviceOption(this)">
+                            <div class="tick-box">✓</div>
+                            <div>
+                                <div style="font-size: 24px;">💡</div>
+                                <div style="font-size: 15px; font-weight: 800; line-height: 1.4;">Đèn bàn bật mở bằng công tắc</div>
+                            </div>
+                        </div>
+
+                        <div class="device-option" data-has-ai="true" onclick="toggleDeviceOption(this)">
+                            <div class="tick-box">✓</div>
+                            <div>
+                                <div style="font-size: 24px;">🔊</div>
+                                <div style="font-size: 15px; font-weight: 800; line-height: 1.4;">Loa thông minh trả lời câu hỏi</div>
+                            </div>
+                        </div>
+
+                        <div class="device-option" data-has-ai="false" onclick="toggleDeviceOption(this)">
+                            <div class="tick-box">✓</div>
+                            <div>
+                                <div style="font-size: 24px;">📏</div>
+                                <div style="font-size: 15px; font-weight: 800; line-height: 1.4;">Thước kẻ nhựa</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="text-align: center;">
+                        <button type="button" class="btn-speak green" onclick="verifyDetective()">
+                            <span>🌟 Kiểm tra đáp án</span>
+                        </button>
+                    </div>
+
+                    <div id="quiz-result-msg" style="display: none; margin-top: 16px; padding: 16px; border-radius: 18px; font-size: 16px; font-weight: 800; line-height: 1.85;"></div>
+                </div>
+
+                <!-- Vai trò của Em và AI -->
+                <div class="card-white" style="background: linear-gradient(180deg, #ffffff 0%, #fffbeb 100%);">
+                    <div class="card-top-bar">
+                        <div class="title-with-icon">
+                            <span style="font-size: 30px;">👑</span>
+                            <div>
+                                <h3 style="font-family: 'Nunito', sans-serif; font-size: 22px; font-weight: 900; color: #92400e;">
+                                    3. Vai Trò Của Em Và AI
+                                </h3>
+                                <p style="font-size: 15px; font-weight: 700; color: #78350f;">
+                                    Ai làm việc gì trong dự án này?
+                                </p>
+                            </div>
+                        </div>
+                        <button type="button" class="btn-speak" onclick="speakElement('doc-declaration', this)">
+                            <span>🔊 Nghe tuyên ngôn</span>
+                        </button>
+                    </div>
+
+                    <div class="role-item">
+                        <span class="role-q">1. Nghĩ ra ý tưởng lớp học thông minh?</span>
+                        <div class="who-btns">
+                            <button type="button" class="who-btn" onclick="selectWho(this, true, 'me')">🧒 Em làm</button>
+                            <button type="button" class="who-btn" onclick="selectWho(this, false, 'ai')">🤖 AI làm</button>
+                        </div>
+                    </div>
+
+                    <div class="role-item">
+                        <span class="role-q">2. Viết câu lệnh (Prompt) mô tả?</span>
+                        <div class="who-btns">
+                            <button type="button" class="who-btn" onclick="selectWho(this, true, 'me')">🧒 Em làm</button>
+                            <button type="button" class="who-btn" onclick="selectWho(this, false, 'ai')">🤖 AI làm</button>
+                        </div>
+                    </div>
+
+                    <div class="role-item">
+                        <span class="role-q">3. Vẽ bức tranh từ câu lệnh?</span>
+                        <div class="who-btns">
+                            <button type="button" class="who-btn" onclick="selectWho(this, false, 'me')">🧒 Em làm</button>
+                            <button type="button" class="who-btn" onclick="selectWho(this, true, 'ai')">🤖 AI làm</button>
+                        </div>
+                    </div>
+
+                    <div class="role-item">
+                        <span class="role-q">4. Xem tranh, kiểm tra & quyết định sửa?</span>
+                        <div class="who-btns">
+                            <button type="button" class="who-btn" onclick="selectWho(this, true, 'me')">🧒 Em làm</button>
+                            <button type="button" class="who-btn" onclick="selectWho(this, false, 'ai')">🤖 AI làm</button>
+                        </div>
+                    </div>
+
+                    <div id="doc-declaration" class="declaration-card">
+                        <div style="font-size: 13px; font-weight: 900; color: #d97706; text-transform: uppercase; margin-bottom: 4px;">
+                            💡 Tuyên ngôn chủ nhân sáng tạo
+                        </div>
+                        <p style="font-size: 17px; font-weight: 900; color: #1e293b; font-style: italic; line-height: 1.9;">
+                            "Con nghĩ ý tưởng và đưa lệnh; AI tạo hình. Con kiểm tra và có thể yêu cầu AI sửa."
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ======================================================================
+         PHẦN 5: BẢNG ĐIỂM SIÊU SAO (RUBRICS ĐÁNH GIÁ THEO FILE EXCEL KHỐI 1)
+         ====================================================================== -->
+    <section id="cham-diem" class="section">
+        <div class="container">
+            <div class="section-heading-center">
+                <h2>🏆 Bảng Điểm Siêu Sao</h2>
+                <p>Hãy xem kỹ để biết mình cần làm gì để đạt <strong>Mức 4 (Vượt)</strong> nhé!</p>
+                <div style="margin-top: 12px;">
+                    <button type="button" class="btn-speak green" onclick="speakText('Bảng điểm siêu sao. Để đạt Mức 4 Vượt sao, con hãy nhớ bốn bí kíp sau: Một, bổ sung chi tiết và cải tiến câu lệnh một đến hai lần để hình rõ hơn. Hai, so sánh từ hai bản để chọn ảnh phù hợp nhất. Ba, nhận diện đúng thiết bị có AI và giải thích ngắn vì sao thiết bị đó có AI. Bốn, phân biệt rõ vai trò của con và AI, biết tự kiểm tra ảnh và yêu cầu AI chỉnh sửa khi cần!', this)">
+                        <span>🔊 Nghe bí kíp đạt Mức 4 Siêu Sao</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="rubric-card">
+                <table class="rubric-grid-table">
+                    <thead>
+                        <tr>
+                            <th class="col-tc">TIÊU CHÍ</th>
+                            <th class="col-m1">MỨC 1<br><small>(CHƯA ĐẠT)</small></th>
+                            <th class="col-m2">MỨC 2<br><small>(ĐANG HÌNH THÀNH)</small></th>
+                            <th class="col-m3">MỨC 3<br><small>(ĐẠT)</small></th>
+                            <th class="col-m4">MỨC 4 🌟<br><small>(VƯỢT)</small></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <strong>1. Hiện thực hóa ý tưởng bằng AI</strong><br>
+                                <small style="color: #64748b;">Viết câu lệnh (từ khóa)</small>
+                            </td>
+                            <td>✕ HS chưa đưa ra được câu lệnh/từ khóa phù hợp.</td>
+                            <td>🌱 HS đưa được từ khóa nhưng thiếu chi tiết (màu hoặc bối cảnh).</td>
+                            <td>✓ HS đưa câu lệnh rõ, đủ ý để AI tạo hình đúng yêu cầu.</td>
+                            <td>★ HS bổ sung chi tiết và cải tiến câu lệnh 1–2 lần để hình rõ hơn.</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <strong>2. Sản phẩm hình ảnh (Thành phẩm)</strong><br>
+                                <small style="color: #64748b;">Tranh lớp học thông minh</small>
+                            </td>
+                            <td>✕ Ảnh không giống ý tưởng hoặc sai nhiều chi tiết.</td>
+                            <td>🌱 Ảnh đúng đối tượng nhưng thiếu/lệch một số chi tiết.</td>
+                            <td>✓ Ảnh rõ ràng, giống ý tưởng; màu sắc và bố cục phù hợp.</td>
+                            <td>★ Ảnh đúng, nổi bật và HS so sánh từ 2 bản để chọn ảnh phù hợp nhất.</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <strong>3. Nhận diện thiết bị/ứng dụng có AI</strong><br>
+                                <small style="color: #64748b;">Thám tử AI</small>
+                            </td>
+                            <td>✕ HS chưa nhận diện đúng hoặc nhầm thiết bị thông thường với AI.</td>
+                            <td>🌱 HS nhận ra 1–2 thiết bị có AI khi được gợi ý.</td>
+                            <td>✓ HS nhận diện đúng nhiều thiết bị/ứng dụng AI quen thuộc và nêu ví dụ.</td>
+                            <td>★ HS nhận diện đúng và giải thích ngắn được đặc điểm sử dụng AI của ít nhất một thiết bị.</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <strong>4. Phân biệt vai trò bản thân và AI</strong><br>
+                                <small style="color: #64748b;">Phân biệt • MTB 1.2.d</small>
+                            </td>
+                            <td>✕ HS chưa chỉ ra phần việc của mình và AI.</td>
+                            <td>🌱 HS lựa chọn được “AI giúp con” nhưng chưa phân biệt được vai trò của mỗi bên.</td>
+                            <td>✓ HS lựa chọn đúng: con nghĩ ý tưởng, đưa lệnh; AI tạo hình.</td>
+                            <td>★ HS phân biệt rõ vai trò, biết kiểm tra ảnh và yêu cầu AI chỉnh sửa khi cần.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- ======================================================================
+         CHÂN TRANG
+         ====================================================================== -->
+    <footer class="site-footer">
+        © 2026 - 2027 Vinschool • Tin học Khối 1 • Mini Project 1: Lớp Học Thông Minh Của Em
+    </footer>
+
+    <!-- ======================================================================
+         JAVASCRIPT: HỆ THỐNG GIỌNG ĐỌC CHUẨN NGƯỜI VIỆT NAM + TƯƠNG TÁC
+         ====================================================================== -->
+    <script>
+        /* ======================================================================
+           1. HỆ THỐNG ĐỌC GIỌNG NGƯỜI VIỆT NAM CHUẨN BẢN ĐỊA (KHÔNG GIỌNG NƯỚC NGOÀI)
+           - Bước 1: Tìm chính xác giọng tiếng Việt bản địa (Microsoft HoaiMy,
+             Microsoft NamMinh, Google Tiếng Việt, Linh, An, vi-VN) trong trình duyệt.
+           - Bước 2: Nếu trình duyệt/máy tính chưa cài giọng tiếng Việt bản địa
+             (tránh tuyệt đối việc dùng giọng tiếng Anh đọc tiếng Việt), tự động
+             chuyển sang luồng đọc tiếng Việt chuẩn tự nhiên (Google TTS vi).
+           ====================================================================== */
+        let nativeViVoice = null;
+        let currentBtn = null;
+        let currentAudio = null;
+        let audioQueueCancel = false;
+
+        function detectBestVietnameseVoice() {
+            if (!('speechSynthesis' in window)) return null;
+            const voices = window.speechSynthesis.getVoices();
+            if (!voices || voices.length === 0) return null;
+
+            // Danh sách ưu tiên các giọng Việt Nam bản địa tự nhiên nhất
+            const preferredNames = [
+                'hoaimy', 'namminh', 'google tiếng việt', 'linh', 'an', 'vietnamese'
+            ];
+
+            // Lọc các voice có mã ngôn ngữ vi-VN hoặc vi
+            const viVoices = voices.filter(v => {
+                const lang = (v.lang || '').toLowerCase().replace('_', '-');
+                const name = (v.name || '').toLowerCase();
+                return lang === 'vi-vn' || lang.startsWith('vi-') || lang === 'vi' || name.includes('vietnam') || name.includes('tiếng việt');
+            });
+
+            if (viVoices.length === 0) return null;
+
+            for (const pref of preferredNames) {
+                const found = viVoices.find(v => v.name.toLowerCase().includes(pref));
+                if (found) return found;
+            }
+            return viVoices[0];
+        }
+
+        function refreshVoiceStatus() {
+            nativeViVoice = detectBestVietnameseVoice();
+            const labelEl = document.getElementById('voice-label');
+            if (labelEl) {
+                if (nativeViVoice) {
+                    labelEl.textContent = 'Giọng Việt Nam (' + nativeViVoice.name.replace('Microsoft ', '').replace(' Online (Natural)', '') + ')';
+                } else {
+                    labelEl.textContent = 'Giọng đọc Việt Nam Chuẩn';
+                }
+            }
+        }
+
+        if ('speechSynthesis' in window) {
+            refreshVoiceStatus();
+            window.speechSynthesis.onvoiceschanged = refreshVoiceStatus;
+        }
+
+        function stopAllSpeech() {
+            audioQueueCancel = true;
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+            }
+            if (currentAudio) {
+                currentAudio.pause();
+                currentAudio.src = '';
+                currentAudio = null;
+            }
+            if (currentBtn) {
+                currentBtn.classList.remove('is-speaking');
+                currentBtn = null;
+            }
+        }
+
+        function sanitizeVietnameseText(raw) {
+            return raw
+                .replace(/[\u{1F300}-\u{1FAFF}]/gu, ' ')
+                .replace(/[🔊📜💡🎯🌍🤖🪄🎨📌🕵️🤝📤🎤✨👑🏆🌟✕✓★🌱🔄📋]/g, ' ')
+                .replace(/Prompt/gi, 'câu lệnh')
+                .replace(/Padlet/gi, 'bảng Pát lét')
+                .replace(/\s+/g, ' ')
+                .trim();
+        }
+
+        // Chia đoạn văn thành các câu ngắn <= 170 ký tự để đọc nối tiếp mượt mà
+        function splitTextIntoChunks(text, maxLen = 170) {
+            const sentences = text.split(/(?<=[.!?;:])\s+/);
+            const chunks = [];
+            for (const s of sentences) {
+                if (s.length <= maxLen) {
+                    if (s.trim()) chunks.push(s.trim());
+                } else {
+                    const words = s.split(' ');
+                    let part = '';
+                    for (const w of words) {
+                        if ((part + ' ' + w).trim().length > maxLen) {
+                            if (part.trim()) chunks.push(part.trim());
+                            part = w;
+                        } else {
+                            part = (part + ' ' + w).trim();
+                        }
+                    }
+                    if (part.trim()) chunks.push(part.trim());
+                }
+            }
+            return chunks;
+        }
+
+        // Phát âm thanh giọng Việt chuẩn qua luồng TTS tiếng Việt khi máy thiếu gói voice
+        async function playOnlineVietnameseTTS(cleanText, btn) {
+            audioQueueCancel = false;
+            const chunks = splitTextIntoChunks(cleanText, 165);
+
+            for (let i = 0; i < chunks.length; i++) {
+                if (audioQueueCancel) break;
+                const q = encodeURIComponent(chunks[i]);
+                const url = `https://translate.google.com/translate_tts?ie=UTF-8&tl=vi&client=tw-ob&q=${q}`;
+
+                await new Promise((resolve) => {
+                    if (audioQueueCancel) return resolve();
+                    const audio = new Audio(url);
+                    currentAudio = audio;
+                    audio.playbackRate = 0.94; // Tốc độ vừa phải cho học sinh lớp 1
+                    audio.onended = () => resolve();
+                    audio.onerror = () => resolve();
+                    audio.play().catch(() => resolve());
+                });
+            }
+
+            if (!audioQueueCancel && btn) {
+                btn.classList.remove('is-speaking');
+                if (currentBtn === btn) currentBtn = null;
+            }
+        }
+
+        function speakText(rawText, btn) {
+            // Nếu đang bấm lại chính nút đang đọc thì dừng đọc
+            if (btn && currentBtn === btn) {
+                stopAllSpeech();
+                return;
+            }
+
+            stopAllSpeech();
+            const cleanText = sanitizeVietnameseText(rawText);
+            if (!cleanText) return;
+
+            if (btn) {
+                currentBtn = btn;
+                btn.classList.add('is-speaking');
+            }
+
+            // Cập nhật lại danh sách giọng tiếng Việt
+            nativeViVoice = detectBestVietnameseVoice();
+
+            if (nativeViVoice && 'speechSynthesis' in window) {
+                const utterance = new SpeechSynthesisUtterance(cleanText);
+                utterance.voice = nativeViVoice;
+                utterance.lang = 'vi-VN';
+                utterance.rate = 0.88; // Đọc chậm rãi, rõ ràng cho học sinh Khối 1
+                utterance.pitch = 1.05;
+
+                utterance.onend = () => {
+                    if (btn) btn.classList.remove('is-speaking');
+                    if (currentBtn === btn) currentBtn = null;
+                };
+                utterance.onerror = () => {
+                    // Nếu giọng bản địa gặp lỗi, tự động chuyển sang giọng Việt trực tuyến
+                    playOnlineVietnameseTTS(cleanText, btn);
+                };
+
+                window.speechSynthesis.speak(utterance);
+            } else {
+                // Tuyệt đối không dùng giọng tiếng Anh đọc tiếng Việt -> gọi luồng giọng Việt chuẩn
+                playOnlineVietnameseTTS(cleanText, btn);
+            }
+        }
+
+        function speakElement(elementId, btn) {
+            const el = document.getElementById(elementId);
+            if (el) {
+                speakText(el.innerText, btn);
+            }
+        }
+
+        function testVietnameseVoice(btn) {
+            speakText('Xin chào các bạn nhỏ Khối 1 Vinschool! Chúc các con học thật vui và hoàn thành xuất sắc dự án Lớp học thông minh nhé!', btn);
+        }
+
+        /* ======================================================================
+           2. TRẠM GHÉP CÂU LỆNH THẦN KỲ & MINH HỌA SVG ĐỘNG
+           ====================================================================== */
+        const promptState = {
+            device: '[thiết bị AI]',
+            action: '[công việc]',
+            decor: '[đồ vật trang trí]',
+            color: '[màu sắc]'
+        };
+
+        function pickKeyword(type, label, key, btn) {
+            const groupBox = btn.parentElement;
+            groupBox.querySelectorAll('.choice-btn').forEach(el => el.classList.remove('active'));
+            btn.classList.add('active');
+
+            promptState[type] = label;
+            renderPromptBox();
+            updateClassroomSVG(type, key, label);
+
+            // Đọc to từ khóa bé vừa chọn bằng giọng Việt Nam
+            speakText(label, null);
+        }
+
+        function renderPromptBox() {
+            const box = document.getElementById('final-prompt-text');
+            box.innerHTML = `"Hãy vẽ một lớp học thông minh có <span class="slot-device">${promptState.device}</span> giúp học sinh <span class="slot-action">${promptState.action}</span>. Lớp học có <span class="slot-decor">${promptState.decor}</span>, màu chủ đạo là <span class="slot-color">${promptState.color}</span>, theo phong cách hoạt hình dễ thương."`;
+        }
+
+        function updateClassroomSVG(type, key, label) {
+            if (type === 'color') {
+                document.getElementById('wall-rect').setAttribute('fill', key);
+            } else if (type === 'action') {
+                document.getElementById('action-label-svg').textContent = '✨ ' + label;
+            } else if (type === 'device') {
+                const layer = document.getElementById('device-layer');
+                if (key === 'robot') {
+                    layer.innerHTML = `
+                        <line x1="50" y1="0" x2="50" y2="18" stroke="#475569" stroke-width="5" />
+                        <circle cx="50" cy="0" r="7" fill="#ec4899" />
+                        <rect x="15" y="18" width="70" height="52" rx="16" fill="#ffffff" stroke="#2563eb" stroke-width="5" />
+                        <circle cx="36" cy="40" r="7" fill="#2563eb" />
+                        <circle cx="64" cy="40" r="7" fill="#2563eb" />
+                        <path d="M 38 54 Q 50 64 62 54" stroke="#ec4899" stroke-width="4" fill="none" stroke-linecap="round" />
+                        <rect x="22" y="75" width="56" height="50" rx="14" fill="#3b82f6" />
+                        <text x="50" y="106" font-size="18" font-weight="900" fill="#ffffff" text-anchor="middle">AI</text>
+                    `;
+                } else if (key === 'board') {
+                    layer.innerHTML = `
+                        <rect x="-15" y="15" width="130" height="85" rx="14" fill="#1e293b" stroke="#0284c7" stroke-width="6" />
+                        <circle cx="25" cy="48" r="12" fill="#38bdf8" />
+                        <rect x="48" y="38" width="52" height="10" rx="5" fill="#facc15" />
+                        <rect x="48" y="56" width="38" height="10" rx="5" fill="#4ade80" />
+                        <rect x="35" y="100" width="30" height="28" fill="#64748b" />
+                    `;
+                } else if (key === 'speaker') {
+                    layer.innerHTML = `
+                        <rect x="22" y="20" width="56" height="105" rx="24" fill="#7c3aed" stroke="#ffffff" stroke-width="4" />
+                        <circle cx="50" cy="52" r="14" fill="#ddd6fe" />
+                        <circle cx="50" cy="92" r="18" fill="#c4b5fd" />
+                        <path d="M 88 45 Q 100 65 88 85" stroke="#ec4899" stroke-width="4" fill="none" stroke-linecap="round" />
+                    `;
+                } else if (key === 'screen') {
+                    layer.innerHTML = `
+                        <ellipse cx="50" cy="122" rx="36" ry="10" fill="#0284c7" />
+                        <rect x="5" y="20" width="90" height="85" rx="16" fill="rgba(56,189,248,0.28)" stroke="#0284c7" stroke-width="4" stroke-dasharray="6 4" />
+                        <text x="50" y="68" font-size="22" font-weight="900" fill="#0369a1" text-anchor="middle">3D AI</text>
+                    `;
+                }
+            } else if (type === 'decor') {
+                const decor = document.getElementById('decor-layer');
+                if (key === 'plants') {
+                    decor.innerHTML = `
+                        <rect x="35" y="185" width="32" height="40" rx="6" fill="#ea580c" />
+                        <circle cx="51" cy="165" r="24" fill="#22c55e" />
+                        <circle cx="36" cy="175" r="16" fill="#4ade80" />
+                        <circle cx="66" cy="175" r="16" fill="#16a34a" />
+                    `;
+                } else if (key === 'bear') {
+                    decor.innerHTML = `
+                        <circle cx="35" cy="168" r="12" fill="#d97706" />
+                        <circle cx="67" cy="168" r="12" fill="#d97706" />
+                        <circle cx="51" cy="182" r="22" fill="#f59e0b" />
+                        <ellipse cx="51" cy="212" rx="28" ry="16" fill="#fbbf24" />
+                    `;
+                } else if (key === 'balloons') {
+                    decor.innerHTML = `
+                        <line x1="40" y1="155" x2="50" y2="225" stroke="#64748b" stroke-width="2" />
+                        <line x1="68" y1="145" x2="50" y2="225" stroke="#64748b" stroke-width="2" />
+                        <circle cx="40" cy="140" r="18" fill="#ec4899" />
+                        <circle cx="68" cy="130" r="20" fill="#facc15" />
+                    `;
+                } else if (key === 'tree') {
+                    decor.innerHTML = `
+                        <rect x="42" y="165" width="18" height="60" fill="#92400e" />
+                        <circle cx="51" cy="145" r="32" fill="#16a34a" />
+                        <rect x="36" y="140" width="30" height="8" rx="3" fill="#fef08a" />
+                    `;
+                }
+            }
+        }
+
+        function resetPromptBuilder() {
+            promptState.device = '[thiết bị AI]';
+            promptState.action = '[công việc]';
+            promptState.decor = '[đồ vật trang trí]';
+            promptState.color = '[màu sắc]';
+            document.querySelectorAll('.choice-btn').forEach(el => el.classList.remove('active'));
+            renderPromptBox();
+            document.getElementById('wall-rect').setAttribute('fill', '#e0f2fe');
+            document.getElementById('action-label-svg').textContent = '✨ Trợ lý AI';
+            speakText('Đã làm mới câu lệnh. Con hãy chọn lại nhé!', null);
+        }
+
+        function copyPromptText() {
+            const text = document.getElementById('final-prompt-text').innerText;
+            const ta = document.createElement('textarea');
+            ta.value = text;
+            document.body.appendChild(ta);
+            ta.select();
+            document.execCommand('copy');
+            document.body.removeChild(ta);
+
+            const alertEl = document.getElementById('copy-alert');
+            alertEl.style.display = 'block';
+            speakText('Đã sao chép câu lệnh thành công!', null);
+            setTimeout(() => { alertEl.style.display = 'none'; }, 3500);
+        }
+
+        /* ======================================================================
+           3. TRÒ CHƠI THÁM TỬ AI & VAI TRÒ EM - AI
+           ====================================================================== */
+        function toggleDeviceOption(el) {
+            el.classList.remove('is-right', 'is-wrong');
+            el.classList.toggle('selected');
+            const text = el.querySelector('div:last-child div:last-child').innerText;
+            speakText(text, null);
+        }
+
+        function verifyDetective() {
+            const items = document.querySelectorAll('#ai-quiz-grid .device-option');
+            let rightPicked = 0;
+            let wrongPicked = 0;
+
+            items.forEach(item => {
+                const hasAI = item.getAttribute('data-has-ai') === 'true';
+                const isSelected = item.classList.contains('selected');
+                item.classList.remove('is-right', 'is-wrong');
+
+                if (hasAI && isSelected) {
+                    item.classList.add('is-right');
+                    rightPicked++;
+                } else if (!hasAI && isSelected) {
+                    item.classList.add('is-wrong');
+                    wrongPicked++;
+                }
+            });
+
+            const msgBox = document.getElementById('quiz-result-msg');
+            msgBox.style.display = 'block';
+
+            if (rightPicked === 3 && wrongPicked === 0) {
+                msgBox.style.background = '#dcfce7';
+                msgBox.style.color = '#14532d';
+                msgBox.style.border = '2px solid #22c55e';
+                const message = 'Hoan hô! Con đã tìm đúng cả 3 thiết bị có AI vì chúng biết nhận diện khuôn mặt, nghe hiểu và đưa ra gợi ý thông minh chứ không chỉ chạy bằng điện!';
+                msgBox.innerHTML = '🌟 ' + message;
+                speakText(message, null);
+            } else {
+                msgBox.style.background = '#fef3c7';
+                msgBox.style.color = '#78350f';
+                msgBox.style.border = '2px solid #f59e0b';
+                const message = 'Con hãy kiểm tra lại nhé! Thiết bị có AI là những đồ vật biết tự gợi ý câu trả lời, nhận diện khuôn mặt hoặc trả lời câu hỏi. Còn quạt máy, đèn bàn và thước kẻ không có AI đâu nhé!';
+                msgBox.innerHTML = '💡 ' + message;
+                speakText(message, null);
+            }
+        }
+
+        function selectWho(btn, isCorrect, who) {
+            const group = btn.parentElement;
+            group.querySelectorAll('.who-btn').forEach(b => b.classList.remove('me-ok', 'ai-ok'));
+            btn.classList.add(who === 'me' ? 'me-ok' : 'ai-ok');
+
+            if (isCorrect) {
+                speakText('Đúng rồi! Giỏi quá!', null);
+            } else {
+                speakText('Chưa đúng rồi, con thử chọn lại nhé!', null);
+            }
+        }
+    </script>
+</body>
+</html>
